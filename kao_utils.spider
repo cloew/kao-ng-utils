@@ -1,0 +1,74 @@
+use angular;
+use console;
+
+angular.module('kao.utils', [])
+    .factory('KaoDefer', fn($q) {
+        fn KaoDefer() {
+            var defer = $q.defer();
+            defer.promise.success = fn(callback) {
+                defer.promise.then(fn() {
+                    callback.apply(this, arguments);
+                });
+                return defer.promise;
+            };
+
+            defer.promise.error = fn(callback) {
+                defer.promise.then(null, fn() {
+                    callback.apply(this, arguments);
+                });
+                return defer.promise;
+            };
+
+            return defer;
+        }
+        return KaoDefer;
+    })
+    .directive('dynamicDirective', fn($compile) {
+        return {
+            restrict: 'E',
+            replace: true,
+            link: fn(scope, element, attrs) {
+                if(attrs.directive) {
+                    var dom = '<'+attrs.directive+'>'+'</'+attrs.directive+'>';
+                    var el = $compile(dom)(scope);
+                    element.append(el);
+                }
+            }
+        };
+    })
+    .directive('transcludePlaceholder', fn() {
+        return {
+            restrict: 'A',
+            replace: true,
+            controller: fn($transclude) {
+                this.$transclude = $transclude;
+            },
+            link: fn(scope, element, attrs, controller) {
+                var attach = fn(clone){
+                    for var i =0; i < clone.length; i++ {
+                        var el = angular.element(clone[i]);
+                        if(el.attr('fills-transclude') == attrs.transcludePlaceholder){
+                            element.empty();
+                            element.append(el);
+                        }
+                    }
+                };
+                controller.$transclude(fn(clone) {
+                    attach(clone);
+                });
+            }
+        };
+    })
+    .directive('kaoHeader', fn() {
+        return {
+            restrict: 'E',
+            replace: true,
+            transclude: true,
+            scope: {headerTitle: '@'},
+            template: '<div class="col-md-12 text-center">
+                       <div class="col-md-2" transclude-placeholder="left"></div>
+                       <h1 class="col-md-8">{{headerTitle}}</h1>
+                       <div class="col-md-2" transclude-placeholder="right"></div>
+                       </div>'
+        };
+    });

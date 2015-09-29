@@ -1,0 +1,24 @@
+{
+  "name": "kao-ng-utils",
+  "version": "0.0.0",
+  "homepage": "https://github.com/cloew/kao-ng-utils",
+  "authors": [
+    "Chris Loew <cloew123@gmail.com>"
+  ],
+  "description": "Angular library with basic resuable directives and services",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "*.spider"
+  ]
+}
