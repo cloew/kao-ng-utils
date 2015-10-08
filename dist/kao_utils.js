@@ -18,6 +18,21 @@ $traceurRuntime.ModuleStore.getAnonymousModule(function() {
       return defer;
     }
     return KaoDefer;
+  }).factory("KaoPromise", function(KaoDefer) {
+    function KaoPromise(promise, resolveWith) {
+      var deferred = KaoDefer();
+      promise.success(function(data) {
+        var resolveData = typeof resolveWith === "function" ? resolveWith(data) : void 0;
+        if (!(typeof resolveData !== "undefined" && resolveData !== null)) {
+          resolveData = data;
+        }
+        deferred.resolve(resolveData);
+      }).error(function(error) {
+        deferred.reject(error);
+      });
+      return deferred.promise;
+    }
+    return KaoPromise;
   }).directive("dynamicDirective", function($compile) {
     return {
       restrict: "E",

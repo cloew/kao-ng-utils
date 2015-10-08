@@ -23,6 +23,22 @@ angular.module('kao.utils', [])
         }
         return KaoDefer;
     })
+    .factory('KaoPromise', fn(KaoDefer) {
+        fn KaoPromise(promise, resolveWith) {
+            var deferred = KaoDefer();
+            promise.success(fn(data) {
+                var resolveData = resolveWith?(data);
+                if !resolveData? {
+                    resolveData = data;
+                }
+                deferred.resolve(resolveData);
+            }).error(fn(error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
+        return KaoPromise;
+    })
     .directive('dynamicDirective', fn($compile) {
         return {
             restrict: 'E',
