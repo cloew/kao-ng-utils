@@ -5,10 +5,13 @@ module.exports = function(grunt) {
             options: {
                 sourcemap: false
             },
-            utils: {
-                files: {
-                    'dist/kao_utils.js': 'kao_utils.spider'
-                }
+            compile: {
+                files: [{
+                    expand: true,
+                    src: ['*.spider'],
+                    dest: 'dist/',
+                    ext: '.js'
+                }]
             }
         }
     });
