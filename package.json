@@ -1,0 +1,23 @@
+{
+  "name": "kao-ng-utils",
+  "version": "0.1.0",
+  "description": "Angular library with basic Utility directives and services",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloew/kao-ng-utils.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cloew/kao-ng-utils/issues"
+  },
+  "homepage": "https://github.com/cloew/kao-ng-utils#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-spider-script": "0.0.9"
+  }
+}
